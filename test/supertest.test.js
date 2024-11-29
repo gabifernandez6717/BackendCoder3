@@ -72,7 +72,7 @@ describe("Testing de la app", () => {
                 name: "mascotaTest",
                 specie: "bicho",
                 birthDate: new Date(),
-                adopted: true,
+                adopted: false,
                 owner:"12dwcefg354y65",
                 image: "www.charango.com"
             }
