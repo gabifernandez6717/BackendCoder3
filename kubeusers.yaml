@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proyectofinal
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: proyectofinal
+  template:
+    metadata:
+      labels:
+        app: proyectofinal
+    spec:
+      containers:
+      - name: proyectofinal
+        image: gabinator18/proyectofinalgabi:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONGO_URL
+          value: "mongodb+srv://gabito2005usa:backend3@backend3.xrn3q.mongodb.net/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proyectofinal-service
+spec:
+  selector:
+    app: proyectofinal
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

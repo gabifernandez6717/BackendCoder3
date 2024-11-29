@@ -1,0 +1,182 @@
+paths:
+  /api/users:
+    get:
+      summary: Devuelve todos los usuarios de la DB
+      tags:
+        - Users
+      responses:
+        "200":
+          description: "se obtienen los usuarios correctamente"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/user"
+        "500":
+          description: "error interno del servidor"
+    post:
+      summary: crea un nuevo user en la DB
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createUser"
+      responses:
+        "201":
+          description: "usuario creado correctamente"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/user"
+        "500":
+          description: "error interno del servidor"
+  /api/users/{uid}:
+    get:
+      summary: Devuelve un user por su uid
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: id del user a buscar
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "se obtiene el usuario correctamente"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/user"
+        "500":
+          description: "error interno del servidor"
+    put:
+      summary: Edita un user de acuerdo a su uid y la info por req.body
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: id del user a actualizar
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateUser"
+      responses:
+        "200":
+          description: "se edita el usuario correctamente"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/user"
+        "404":
+          description: "no encontrado"
+        "500":
+          description: "error interno del servidor"
+    delete:
+      summary: Elimina un user de acuerdo a su uid
+      tags:
+        - Users
+      responses:
+        "200":
+          description: "se elimina el usuario correctamente"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/user"
+        "500":
+          description: "error interno del servidor"
+
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: "Nombre del user"
+        last_name:
+          type: string
+          description: "Apellido del user"
+        email:
+          type: string
+          description: "Email del user"
+        password:
+          type: string
+          description: "Contraseña del user"
+        role:
+          type: string
+          description: "role del user"
+        pets:
+          type: array
+          description: "pets del user"
+      example:
+        _id: ObjectId("6716a39e72e61a922df93b02")
+        first_name: Jose
+        last_name: Argento
+        email: pepeargento2005@gmail.com
+        password: racing123
+        role: admin
+        pets: []
+  requestBodies:
+    createUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: "Nombre del user"
+        last_name:
+          type: string
+          description: "Apellido del user"
+        email:
+          type: string
+          description: "Email del user"
+        password:
+          type: string
+          description: "Contraseña del user"
+        role:
+          type: string
+          description: "role del user"
+        pets:
+          type: array
+          description: "pets del user"
+    updateUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: "Nombre del user"
+        last_name:
+          type: string
+          description: "Apellido del user"
+        email:
+          type: string
+          description: "Email del user"
+        password:
+          type: string
+          description: "Contraseña del user"
+        role:
+          type: string
+          description: "role del user"
+        pets:
+          type: array
+          description: "pets del user"
+
